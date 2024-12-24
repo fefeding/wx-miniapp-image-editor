@@ -1,0 +1,48 @@
+<wxs module="titleModule">
+var titleMap = {
+  'camera': '拍摄作文',
+  'file': '查看作文',
+  'image': '图片裁剪'
+};
+
+module.exports = {
+  getTitle : function(type) {
+    var title = titleMap[type] || titleMap['image'];
+    return title;
+  },
+  goButtonText: '去批改 >'
+}
+</wxs>
+
+<nav-bar title="{{titleModule.getTitle(type)}}" backgroundColorTop="#000" background="#000" color="#fff" iconTheme="white"></nav-bar>
+<view class="page-container">
+  <scroll-view scroll-x="true" enable-flex="true" scroll-anchoring="true" type="list" class="image-list-container">
+    <!-- <template is="fileListItemTpl" wx:for="files" wx:key="index" data="{{item}}"></template> -->
+    <!-- <view class="file-list-item {{fileItem.selected? 'selected': ''}}" wx:for="{{files}}" wx:key="index" wx:for-item="fileItem" >
+      <image src="{{fileItem.path}}" mode="aspectFill" class="image" bind:tap="selectFile" data-id="{{fileItem.id}}"></image>
+      <mp-icon icon="close" type="outline" color="black" extClass="close" size="{{20}}"></mp-icon>
+      <mp-icon bind:tap="removeFile" data-id="{{fileItem.id}}" icon="close2" type="field" color="#eee" extClass="close" size="{{20}}"></mp-icon>
+    </view> -->
+    <image-list-selecter id="imageSelecter" bind:select="selectFile" bind:remove="removeFile" bind:filesSorted="filesSorted" class="image-list-item" canRemove="{{true}}" files="{{files}}"></image-list-selecter>
+    <view class="image-list-item file-add-container" bind:tap="addFile" wx:if="{{files.length < maxFileCount}}">
+      <mp-icon data-id="+" icon="add" type="field" color="#000" size="{{30}}" extClass="file-add"></mp-icon>
+    </view>
+  </scroll-view>
+
+  <view class="content-view-container">
+    <!-- <view class="editor-tips">
+      为了给您带来较好的批改效果，请裁剪掉非作文区域的内容～
+    </view> -->
+    <!-- <camera style="height: 100%;" wx:if="{{action === 'camera'}}"></camera> -->
+    <image-editor id="image_editor" wx:if="{{currentFile}}" style="height: 100%;width:100%;" url="{{currentFile.path}}"></image-editor>
+  </view>
+  
+  <view class="action-container" wx:if="{{files.length}}">
+   <view class="action-empty"></view>
+    <view class="cut-done" bind:tap="cutImageDone">
+      <view class="bg"></view>
+      <icon class="done-icon" type="success" size="70" role="img" color="#219548"></icon>
+    </view>
+    <button class="go-essay" type="primary" bind:tap="goPolish">{{titleModule.goButtonText}}</button>
+  </view>
+</view>

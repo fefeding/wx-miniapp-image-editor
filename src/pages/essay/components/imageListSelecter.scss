@@ -1,0 +1,43 @@
+.file-list-container {
+  position: relative;
+  .file-list-item {
+    width: 50px; 
+    height: 60px; 
+    margin: auto 10px;
+    position: relative;
+    flex: 0 0 auto; /* 防止子元素在垂直方向上拉伸 */ 
+    display: inline-block;
+    border: 2px solid #ccc;
+    overflow: visible;
+    transition: scale 0.5s;
+    opacity: 0.8;
+    &.selected {
+      scale: 1.3 1.3;
+      border: 2px solid #9F7445;
+      opacity: 1;
+    }
+    &.dragging {
+      border-color: green;
+      z-index: 10000;
+    }
+    .close {
+      position: absolute;
+      right: -10px;
+      top: -10px;
+      color: #000;
+    }
+    .image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .drag-position-line {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    border: 0;
+    height: 100%;
+    width: 2px;
+    background-color: blue;
+  }
+}

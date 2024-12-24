@@ -1,0 +1,6 @@
+<nav-bar></nav-bar>
+<view class="page-container">  
+  <view class="page-content">
+    <top-banner></top-banner>
+  </view>    
+</view>

@@ -1,0 +1,3 @@
+<view class="editor-container">
+  <jmgraph class="editor-graph" id="jmgraph_component" renderer="{{renderer}}"></jmgraph>
+</view>

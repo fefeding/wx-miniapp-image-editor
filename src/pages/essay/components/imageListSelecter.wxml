@@ -1,0 +1,10 @@
+<view class="file-list-container" id="file_container" bind:touchcancel="dragEnd" bind:touchend="dragEnd" bind:touchmove="dragMove">
+  <view class="file-list-item {{fileItem.selected? 'selected': ''}} {{dragingItem && dragingItem.id===fileItem.id?'dragging':''}}" 
+    style="transform: translateX({{dragingItem && dragingItem.id===fileItem.id?dragArguments.offset.x:0}}px);"
+    wx:for="{{files}}" wx:key="index" wx:for-item="fileItem" data-id="{{fileItem.id}}" id="{{fileItem.id}}" bind:touchstart="dragStart" >
+      <image src="{{fileItem.path}}" mode="aspectFill" class="image" bind:tap="select" data-id="{{fileItem.id}}"></image>
+      <mp-icon wx:if="{{canRemove}}" icon="close" type="outline" color="black" extClass="imageListSelecter--close" size="{{20}}"></mp-icon>
+      <mp-icon wx:if="{{canRemove}}" bind:tap="removeImage" data-id="{{fileItem.id}}" icon="close2" type="field" color="#eee" extClass="imageListSelecter--close" size="{{20}}"></mp-icon>
+    </view>
+    <view class="drag-position-line" wx:if="{{dragingItem}}" style="left: {{dragLineLeft}}px;"></view>
+</view>

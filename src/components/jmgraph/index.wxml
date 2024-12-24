@@ -1,0 +1,3 @@
+
+<image wx:if="{{renderer==='image'}}" style="width: 100%; height: 100%;" id="jmgraph_canvas" src="{{imageData}}" bind:touchstart="canvastouchstart" bind:touchmove="canvastouchmove" bind:touchend="canvastouchend" bind:touchcancel="canvastouchcancel"></image>
+<canvas wx:else type="2d" style="width: 100%; height: 100%;" id="jmgraph_canvas" disable-scroll="false" bind:touchstart="canvastouchstart" bind:touchmove="canvastouchmove" bind:touchend="canvastouchend" bind:touchcancel="canvastouchcancel" bind:tap="canvastap"></canvas>

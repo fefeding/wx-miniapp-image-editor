@@ -1,0 +1,33 @@
+{
+    "pages": [
+        "pages/index/index"
+    ],
+    "useExtendedLib": {
+        "weui": true
+    },
+    "style": "v2",
+    "renderer": "webview",
+    "componentFramework": "glass-easel",
+    "rendererOptions": {
+        "skyline": {
+            "defaultDisplayBlock": true,
+            "defaultContentBox": true,
+            "disableABTest": true,
+            "sdkVersionBegin": "3.6.5"
+        }
+    },
+    "subpackages": [],
+    "usingComponents": {
+        "nav-bar": "/components/navBar/navBar"
+    },
+    "window": {
+        "navigationStyle": "default",
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#e4dbdb",
+        "backgroundColor": "#fff",
+        "navigationBarTitleText": "imageeditor",
+        "navigationBarTextStyle": "black"
+    },
+    "lazyCodeLoading": "requiredComponents",
+    "sitemapLocation": "sitemap.json"
+}
