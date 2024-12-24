@@ -1,7 +1,0 @@
-{
-    "usingComponents": {
-      "mp-icon": "weui-miniprogram/icon/icon",
-      "image-editor": "./components/imageEditor",
-      "image-list-selecter": "./components/imageListSelecter"
-    }
-}

@@ -1,6 +1,1 @@
-<nav-bar></nav-bar>
-<view class="page-container">  
-  <view class="page-content">
-    <top-banner></top-banner>
-  </view>    
-</view>
+<image-editor style="width: 100%; flex: 1; flex-direction: column;"></image-editor>

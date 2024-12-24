@@ -18,7 +18,7 @@
     },
     "subpackages": [],
     "usingComponents": {
-        "nav-bar": "/components/navBar/navBar"
+       
     },
     "window": {
         "navigationStyle": "default",

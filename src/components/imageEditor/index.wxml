@@ -1,0 +1,22 @@
+
+<view class="image-editor-container">
+  <scroll-view scroll-x="true" enable-flex="true" scroll-anchoring="true" type="list" class="image-list-container">
+    
+    <image-list-selecter id="imageSelecter" bind:select="selectFile" bind:remove="removeFile" bind:filesSorted="filesSorted" class="image-list-item" canRemove="{{true}}" files="{{files}}"></image-list-selecter>
+    <view class="image-list-item file-add-container" bind:tap="addFile" wx:if="{{files.length < maxFileCount}}">
+      <mp-icon data-id="+" icon="add" type="field" color="#000" size="{{30}}" extClass="file-add"></mp-icon>
+    </view>
+  </scroll-view>
+
+  <view class="content-view-container">
+    <image-editor id="image_editor" wx:if="{{currentFile}}" style="height: 100%;width:100%;" url="{{currentFile.path}}"></image-editor>
+  </view>
+  
+  <view class="action-container" wx:if="{{files.length}}">
+   <view class="action-empty"></view>
+    <view class="cut-done" bind:tap="cutImageDone">
+      <view class="bg"></view>
+      <icon class="done-icon" type="success" size="70" role="img" color="#219548"></icon>
+    </view>
+  </view>
+</view>
