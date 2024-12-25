@@ -58,6 +58,7 @@ Component({
           image: currentImage,
           index: currentImageIndex
         });
+        this.resetDrag();
       },
       // 移除
       removeImage(event: { currentTarget: { dataset: { id: string; }; }; }) {
@@ -131,6 +132,7 @@ Component({
       async setDragLinePosition(id: string) {
         const containerBounds = this.data.containerBounds || (this.data.containerBounds = await this.getFileBounds('file_container'));// 容器
         const filesBounds = this.data.filesBounds || (this.data.filesBounds = await this.getFilesBounds());
+        if(!this.data.dragingItem) return;// 如果这会已经取消拖拽不再处理
         // 没有id就排到最后
         if(!id) {
           const lastItem = this.data.files[this.data.files.length-1];
@@ -159,7 +161,6 @@ Component({
         if(!item) return;
         this.data.filesBounds = null;
         this.data.containerBounds = null;
-        await this.setDragLinePosition(item.id);// 光标开始在当前文件位置
         //console.log('start drag', item);
         this.setData({
           dragingItem: item,          
@@ -174,6 +175,7 @@ Component({
             }
           }
         });
+        this.setDragLinePosition(item.id);// 光标开始在当前文件位置
       },      
       async dragMove(event: any) {        
         let offX = (event.touches?.[0]?.pageX - this.data.dragArguments.lastPosition.x)||0;
@@ -201,25 +203,31 @@ Component({
       // 拖拽结束
       dragEnd(event: any) {
         this.data.dragArguments.lastPosition.x = event.touches?.[0]?.pageX;
-        // 拖放进行中
-        if(this.data.dragingItem && this.data.dragingItem.id !== this.data.dropItemId) {
-          const files = [];
-          for(const f of this.data.files) {
-            if(f.id === this.data.dragingItem.id) continue;
-            // 插入到前置的位置
-            if(f.id === this.data.dropItemId) {
+        setTimeout(()=>{
+          console.log('drag end', this.data.dragingItem);
+          // 拖放进行中
+          if(this.data.dragingItem && this.data.dragingItem.id !== this.data.dropItemId) {
+            const files = [];
+            for(const f of this.data.files) {
+              if(f.id === this.data.dragingItem.id) continue;
+              // 插入到前置的位置
+              if(f.id === this.data.dropItemId) {
+                files.push(this.data.dragingItem);
+              }
+              files.push(f);
+            }
+            // 如果没有指定放置的id，则加到最后
+            if(!this.data.dropItemId) {
               files.push(this.data.dragingItem);
             }
-            files.push(f);
+            this.triggerEvent('filesSorted', {
+              files
+            });
           }
-          // 如果没有指定放置的id，则加到最后
-          if(!this.data.dropItemId) {
-            files.push(this.data.dragingItem);
-          }
-          this.triggerEvent('filesSorted', {
-            files
-          });
-        }
+          this.resetDrag();
+        });
+      },
+      resetDrag() {
         this.setData({
           dragingItem: null,
           filesBounds: null,
