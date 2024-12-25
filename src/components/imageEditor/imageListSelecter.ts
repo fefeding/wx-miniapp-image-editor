@@ -161,6 +161,8 @@ Component({
         if(!item) return;
         this.data.filesBounds = null;
         this.data.containerBounds = null;
+
+        //this.select(id);// 先选中
         //console.log('start drag', item);
         this.setData({
           dragingItem: item,          

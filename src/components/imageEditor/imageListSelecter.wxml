@@ -1,9 +1,16 @@
-<view class="file-list-container" id="file_container" bind:touchcancel="dragEnd" bind:touchend="dragEnd" bind:touchmove="dragMove">
+<wxs module="touchModule">
+module.exports = {
+  stopEvent: function(event){
+    console.log('stop event', event);
+  }
+}
+</wxs>
+<view class="file-list-container" id="file_container" mut-bind:touchcancel="dragEnd" mut-bind:touchend="dragEnd" mut-bind:touchmove="dragMove">
   <view class="file-list-item {{fileItem.selected? 'selected': ''}} {{dragingItem && dragingItem.id===fileItem.id?'dragging':''}}" 
     style="transform: translateX({{dragingItem && dragingItem.id===fileItem.id?dragArguments.offset.x:0}}px);"
-    wx:for="{{files}}" wx:key="index" wx:for-item="fileItem" data-id="{{fileItem.id}}" id="{{fileItem.id}}" bind:touchstart="dragStart" >
-      <image src="{{fileItem.path}}" mode="aspectFill" class="image" bind:tap="select" data-id="{{fileItem.id}}"></image>
-      <button class="close" type="default" bind:tap="removeImage" plain data-id="{{fileItem.id}}"></button>
+    wx:for="{{files}}" wx:key="index" wx:for-item="fileItem" data-id="{{fileItem.id}}" id="{{fileItem.id}}" mut-bind:touchstart="dragStart" >
+      <image src="{{fileItem.path}}" mode="aspectFill" class="image" catch:tap="select" data-id="{{fileItem.id}}"></image>
+      <button class="close" type="default" mut-bind:touchstart="{{touchModule.stopEvent}}" catch:tap="removeImage" plain data-id="{{fileItem.id}}"></button>
     </view>
     <view class="drag-position-line" wx:if="{{dragingItem}}" style="left: {{dragLineLeft}}px;"></view>
 </view>

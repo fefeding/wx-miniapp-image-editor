@@ -55,6 +55,12 @@ Component({
       },
       // 选中文件
       selectFile(event: string| {detail: any}) {
+        if(!this.data.files?.length) {
+          this.setData({
+            currentFile: null
+          });
+          return;
+        }
         // 当前页面逻辑触发的，则调用组件内的选择
         if(typeof event === 'string') {
           const ele = this.selectComponent('#imageSelecter');
